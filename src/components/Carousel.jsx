@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import OwlCarousel from 'react-owl-carousel';
+import OwlCarousel from 'https://esm.sh/react-owl-carousel';
 
 const Carousel = () => {
   const [mounted, setMounted] = useState(false);
