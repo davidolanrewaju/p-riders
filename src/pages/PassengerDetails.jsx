@@ -134,7 +134,7 @@ const PassengerDetails = () => {
       </div>
       <div className='container'>
         <div className='row'>
-          <div className='col-md-6 col-lg-6 offset-lg-3 col-sm-12'>
+          <div className='mx-auto col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5 p-2'>
             <div className='mb-5'>
               <table width='70%' height='40px' className='mt-1 mb-1 text-center table-striped' style={{ margin: 'auto' }}>
                 <tbody>

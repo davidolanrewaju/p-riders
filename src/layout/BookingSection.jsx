@@ -80,7 +80,7 @@ const BookingSection = ({ error }) => {
                   <div className='mt-1 mx-auto'>
                     <div className='tab-content' id='pills-tabContent'>
                       <div className='col-lg-8 mx-auto tab-pane fade show active' id='pills-departure' aria-labelledby='pills-departure-tab' role='tabpanel'>
-                      {error && (<div className='alert alert-danger'>{error}</div>)}
+                        {error && <div className='alert alert-danger'>{error}</div>}
                         <form className='w-100' onSubmit={handleSubmit}>
                           <div className='form-group w-100 mt-5'>
                             <label htmlFor='' className='label'>

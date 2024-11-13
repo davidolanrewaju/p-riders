@@ -74,7 +74,7 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
     <>
       <div className='container'>
         <div className='row'>
-          <div className='mx-auto col-12 col-sm-10 col-md-7 col-lg-10 col-xl-8 p-2'>
+          <div className='mx-auto col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5 p-2'>
             <div>
               <div className='map-area mb-100'>
                 <form onSubmit={handleSubmit}>

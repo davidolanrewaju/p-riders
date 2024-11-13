@@ -4,8 +4,8 @@ const SelectInput = ({ data, name, optionHeader, onChange, value }) => {
   return (
     <>
       {data && data.length > 0 ? (
-        <select name={name} className='form-control' required onChange={onChange} value={value}>
-          <option value='select'>{optionHeader}</option>
+        <select name={name} className='form-control' onChange={onChange} value={value} required>
+          <option value="">Select {optionHeader}</option>
           {data.map((item) => (
             <option key={item.id} value={item.tag ? item.tag : item.id}>
               {item.location ? `${item.location}` : item.name}
