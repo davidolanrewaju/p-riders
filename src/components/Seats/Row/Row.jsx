@@ -4,7 +4,7 @@ import Seat from '../Seat/Seat';
 
 const Row = ({ seats, selectedSeats, onSeatClick, includeDriverSeat, includeEmptySeatBefore, includeEmptySeatAfter }) => {
   return (
-    <div className="d-flex align-items-center justify-content-between p-2">
+    <div className="d-flex align-items-center justify-content-between p-1">
       {includeDriverSeat && (
         <div className="m-1" style={{ width: '5rem', height: '5rem' }}>
           <img src="/img/seats/driver.png" className="w-100" alt="driver" />

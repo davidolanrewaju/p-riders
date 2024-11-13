@@ -73,8 +73,8 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
   return (
     <>
       <div className='container'>
-        <div className='d-flex justify-content-center'>
-          <div className='col-md-8 col-lg-6 col-sm-12'>
+        <div className='row'>
+          <div className='mx-auto col-12 col-sm-10 col-md-7 col-lg-10 col-xl-8 p-2'>
             <div>
               <div className='map-area mb-100'>
                 <form onSubmit={handleSubmit}>
@@ -148,7 +148,7 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
                       )}
                     </div>
                     <div>
-                      <div className='text-center m-2 p-sm-5'>
+                      <div className='text-center m-2 p-3 p-md-5'>
                         <Seats updatedData={seats} trip_type={seats.trip.trip_type} handleSelectedSeat={handleSelectedSeat} />
 
                         <div>
