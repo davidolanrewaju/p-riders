@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Seats from './Seats/Seats';
 import useFormatDate from '../../hooks/useFormatDate';
@@ -8,6 +8,7 @@ import TermsAndCondition from '../TermsAndCondition';
 
 const SelectSeatCard = ({ seats, origin, destination }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedSeat, setSelectedSeat] = useState({
     amount: 0,
     noofseats: 0,
@@ -15,23 +16,29 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
     trip_id: 0,
   });
   const [seatError, setSeatError] = useState('');
-  const [hasError, setHasError] = useState(false);
+  const [shouldRefresh, setShouldRefresh] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const tripDate = seats.trip.trip_date || null;
   const formatDate = useFormatDate(tripDate);
 
   useEffect(() => {
     let timer;
-    if (hasError) {
+    if (shouldRefresh) {
       timer = setTimeout(() => {
-        window.location.reload();
+        // Instead of reload(), navigate to the same route with the same state
+        navigate(location.pathname, {
+          state: location.state,
+          replace: true, // This replaces the current entry in the history stack
+        });
       }, 1000);
     }
     return () => clearTimeout(timer);
-  }, [hasError]);
+  }, [shouldRefresh, navigate, location]);
 
   const handleSelectedSeat = (seatInfo) => {
-    const isValidSelection = seatInfo.no_of_seats === parseInt(seats.no_of_seats);
+    const requestedSeats = parseInt(seats.no_of_seats);
+    const selectedSeats = seatInfo.no_of_seats;
+
     setSelectedSeat((prevState) => ({
       ...prevState,
       seats: seatInfo.seats,
@@ -40,18 +47,23 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
       trip_id: seatInfo.trip_id,
     }));
 
-    if (!isValidSelection) {
-      setSeatError(`Please select exactly ${seats.no_of_seats} seat(s)`);
-      setHasError(true);
+    // Only trigger refresh if user selects MORE seats than allowed
+    if (selectedSeats > requestedSeats) {
+      setSeatError(`Please select exactly ${requestedSeats} seat(s)`);
+      setShouldRefresh(true);
     } else {
       setSeatError('');
-      setHasError(false);
+      setShouldRefresh(false);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/bookings/details', { state: selectedSeat });
+    if (selectedSeat.noofseats === parseInt(seats.no_of_seats)) {
+      navigate('/bookings/details', { state: selectedSeat });
+    } else {
+      setSeatError(`Please select exactly ${seats.no_of_seats} seat(s)`);
+    }
   };
 
   const handleModal = () => {

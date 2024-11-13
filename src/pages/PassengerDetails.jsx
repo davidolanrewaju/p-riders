@@ -177,7 +177,7 @@ const PassengerDetails = () => {
                     <tr>
                       <td>
                         <hr width='100%' />
-                        <h5 className='mb-3'>Seat {data.selected_seats}</h5>
+                        <h5 className='mb-3'>Seat {(data.selected_seats).toString()}</h5>
 
                         <input hidden readOnly type='text' name='passengers[1][]' value='16443' />
 
