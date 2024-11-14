@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 const useMonnify = (options) => {
-  console.log(options);
   const [isLoading, setIsLoading] = useState(false);
 
   const generateReference = () => {

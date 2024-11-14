@@ -31,8 +31,6 @@ const Payment = () => {
     onError: (error) => console.log('Payment failed', error),
   }
 
-  console.log(monnifyOptions);
-
   const { isLoading, initializePayment } = useMonnify(monnifyOptions);
 
   return (

@@ -11,7 +11,6 @@ const API = import.meta.env.VITE_URL_API;
 
 export const selectSeat = createAsyncThunk('selectedSeat/postSelectedSeat', async (seatInfo) => {
   const seatData = { ...seatInfo };
-  console.log(seatData);
   const response = await axios.post(`${API}/bookings/process-booking-seat`, seatData);
 
   return response.data;

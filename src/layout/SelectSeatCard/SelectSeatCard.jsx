@@ -25,10 +25,9 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
     let timer;
     if (shouldRefresh) {
       timer = setTimeout(() => {
-        // Instead of reload(), navigate to the same route with the same state
         navigate(location.pathname, {
           state: location.state,
-          replace: true, // This replaces the current entry in the history stack
+          replace: true,
         });
       }, 1000);
     }
