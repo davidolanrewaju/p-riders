@@ -17,6 +17,7 @@ const PassengerDetails = () => {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.selectedSeat.loading);
   const data = useSelector((state) => state.selectedSeat.selectedSeats);
+  const authError = useSelector((state) => state.authentication.error);
 
   const [customerData, setCustomerData] = useState({
     trip_id: 0,
@@ -159,13 +160,17 @@ const PassengerDetails = () => {
                   <tr>
                     <td colSpan='2' style={{ padding: '15px 5px 0' }}>
                       <b>Date of Trip:</b>
-                      <h5>{formattedDate}, at {data.trip.trip_time}</h5>
+                      <h5>
+                        {formattedDate}, at {data.trip.trip_time}
+                      </h5>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan='2' style={{ padding: '15px 5px 0' }}>
                       <b>Total Amount:</b>
-                      <h5>&#8358;{data.bookings[0].trip.amount} for {data.no_of_seats} seat(s)</h5>
+                      <h5>
+                        &#8358;{data.bookings[0].trip.amount} for {data.no_of_seats} seat(s)
+                      </h5>
                     </td>
                   </tr>
                 </tbody>
@@ -177,19 +182,19 @@ const PassengerDetails = () => {
                     <tr>
                       <td>
                         <hr width='100%' />
-                        <h5 className='mb-3'>Seat {(data.selected_seats).toString()}</h5>
+                        <h5 className='mb-3'>Seat {data.selected_seats.toString()}</h5>
 
                         <input hidden readOnly type='text' name='passengers[1][]' value='16443' />
 
                         <div className='form-group row'>
                           <div className='form-group mt-3 col-lg-8 col-sm-12'>
                             Enter Your Full Name
-                            <input className='form-control' type='text' name="name" onChange={handleCustomerDataChange} required />
+                            <input className='form-control' type='text' name='name' onChange={handleCustomerDataChange} required />
                           </div>
 
                           <div className='form-group mt-3 col-lg-4 col-sm-12'>
                             Gender
-                            <select name="gender" className='form-control' onChange={handlePassengerDataChange} required>
+                            <select name='gender' className='form-control' onChange={handlePassengerDataChange} required>
                               <option value=''>-Select Gender-</option>
                               <option value='M'>Male</option>
                               <option value='F'>Female</option>
@@ -205,26 +210,32 @@ const PassengerDetails = () => {
                         <div className='form-group row'>
                           <div className='form-group mt-3 col-12 col-lg-6'>
                             Email
-                            <input className='form-control' type='email' name="email" onChange={handleCustomerDataChange} required />
+                            <input className='form-control' type='email' name='email' onChange={handleCustomerDataChange} required />
                           </div>
 
                           <div className='form-group mt-3 col-12 col-lg-6'>
                             Phone
-                            <input className='form-control' type='tel' name="phone" onChange={handleCustomerDataChange} required />
+                            <input className='form-control' type='tel' name='phone' onChange={handleCustomerDataChange} required />
                           </div>
                         </div>
 
                         <div className='form-group row'>
                           <div className='form-group mt-3 col-12 col-lg-6'>
                             Next of Kin Name
-                            <input className='form-control' type='text' name="nok_name" onChange={handleCustomerDataChange} required />
+                            <input className='form-control' type='text' name='nok_name' onChange={handleCustomerDataChange} required />
                           </div>
 
                           <div className='form-group mt-3 col-12 col-lg-6'>
                             Next of Kin Phone
-                            <input className='form-control' type='tel' name="nok_phone" onChange={handleCustomerDataChange} required />
+                            <input className='form-control' type='tel' name='nok_phone' onChange={handleCustomerDataChange} required />
                           </div>
                         </div>
+
+                        {authError && (
+                          <div className='text-danger' role='alert'>
+                            {authError}
+                          </div>
+                        )}
 
                         <div className='form-group'>
                           <input type='submit' value='Continue' className='btn btn-success default-btn-one py-3 px-4 float-right mt-3' style={{ float: 'right !important' }} />
