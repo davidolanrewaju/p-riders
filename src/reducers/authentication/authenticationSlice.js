@@ -25,6 +25,7 @@ const createAuthThunk = (name, endpoint, useAuth = false) =>
   });
 
 export const login = createAuthThunk('login', '/login');
+export const contactLogin = createAuthThunk('contactLogin', '/contact-login');
 export const signup = createAuthThunk('signup', '/signUp');
 export const logout = createAuthThunk('logout', '/logout', true);
 export const forgotPassword = createAuthThunk('forgotPassword', '/forgot-password');
@@ -73,6 +74,7 @@ const authenticationSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    resetAuthState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -107,6 +109,23 @@ const authenticationSlice = createSlice({
         state.error = null;
       })
       .addCase(signup.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(contactLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(contactLogin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.userDetails = action.payload.data;
+        state.token = action.payload.token;
+        updateAuthToken(action.payload.token);
+        setTokenWithExpiration(action.payload.token, action.payload.data);
+        state.error = null;
+      })
+      .addCase(contactLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
@@ -163,5 +182,5 @@ const authenticationSlice = createSlice({
   },
 });
 
-export const { clearError } = authenticationSlice.actions;
+export const { clearError, resetAuthState } = authenticationSlice.actions;
 export default authenticationSlice.reducer;

@@ -9,7 +9,7 @@ import NavigationBar from '../components/NavigationBar';
 import useFormatDate from '../hooks/useFormatDate';
 
 import { selectSeat } from '../reducers/selectedSeat/selectedSeatSlice';
-import { signup, login } from '../reducers/authentication/authenticationSlice';
+import { signup, contactLogin } from '../reducers/authentication/authenticationSlice';
 
 const PassengerDetails = () => {
   const location = useLocation();
@@ -98,9 +98,9 @@ const PassengerDetails = () => {
       if (signupResult.token) {
         const loginCredentials = {
           email: customerData.email,
-          password: customerData.phone,
+          phone: customerData.phone,
         };
-        await dispatch(login(loginCredentials)).unwrap();
+        await dispatch(contactLogin(loginCredentials)).unwrap();
         navigate('/bookings/save', { state: { ...data, customerDetails: customerData } });
       }
     } catch (error) {
@@ -109,9 +109,9 @@ const PassengerDetails = () => {
       try {
         const loginCredentials = {
           email: customerData.email,
-          password: customerData.phone,
+          phone: customerData.phone,
         };
-        await dispatch(login(loginCredentials)).unwrap();
+        await dispatch(contactLogin(loginCredentials)).unwrap();
         navigate('/bookings/save', { state: { ...data, customerDetails: customerData } });
       } catch (loginError) {
         console.error('Login failed:', loginError);
